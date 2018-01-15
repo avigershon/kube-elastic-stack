@@ -14,7 +14,7 @@ spec:
         name: kibana
     spec:
       containers:
-      - image: docker pull docker.elastic.co/kibana/kibana:6.1.1
+      - image: docker.elastic.co/kibana/kibana:6.1.1
         name: kibana
         ports:
         - containerPort: 5601

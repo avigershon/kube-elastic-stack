@@ -4,7 +4,7 @@
 ## Up
 
 ```
-git clone git@github.com:avigershon/kube-elk-filebeat.git;
+git clone git@github.com:avigershon/kube-elastic-stack.git;
 cd kube-elk-filebeat;
 kubectl create -f kubefiles/ -R --namespace=default;
 

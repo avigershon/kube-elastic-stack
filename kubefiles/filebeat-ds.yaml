@@ -21,7 +21,7 @@ spec:
               memory: 50Mi
           env:
             - name: LOGSTASH_HOSTS
-              value: HOSTNAME:PORT
+              value: logstash:5000
             - name: LOG_LEVEL
               value: debug
             - name: INDEX_PREFIX

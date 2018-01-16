@@ -18,6 +18,16 @@ kubectl port-forward $POD_NAME 5601:5601
 
 ```
 
+
+## Maintain
+
+```
+cd kube-elastic-stack;
+git pull;
+kubectl apply -f kubefiles/ -R --namespace=default;
+
+```
+
 ## Down
 
 ```

@@ -1,4 +1,19 @@
-## Kube ELK stack
+# Elastic stack on kubernetes
 
-More info: https://crondev.com/elk-stack-kubernetes
+
+## Up
+
+```
+git clone git@github.com:avigershon/kube-elk-filebeat.git;
+cd kube-elk-filebeat;
+kubectl create -f kubefiles/ -R --namespace=default;
+
+```
+
+## Down
+
+```
+kubectl delete -f kubefiles/ -R --namespace=default;
+
+```
 

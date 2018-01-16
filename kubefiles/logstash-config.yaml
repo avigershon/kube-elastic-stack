@@ -32,6 +32,8 @@ data:
     output {
       elasticsearch {
         hosts => "elasticsearch:9200"
+        user => "elastic"
+        password => "changeme"
         index => "%{[@metadata][beat]}-%{+YYYY.MM.dd}"
         document_type => "%{[@metadata][type]}"
       }

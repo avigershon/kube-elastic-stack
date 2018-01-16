@@ -10,6 +10,14 @@ kubectl create -f kubefiles/ -R --namespace=default;
 
 ```
 
+## Watch
+
+```
+export POD_NAME=$(kubectl get pods --namespace default -l "name=kibana" -o jsonpath="{.items[0].metadata.name}")
+kubectl port-forward $POD_NAME 5601:5601
+
+```
+
 ## Down
 
 ```

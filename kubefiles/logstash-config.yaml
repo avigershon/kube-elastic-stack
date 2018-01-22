@@ -11,21 +11,18 @@ data:
     }
 
     filter {
-      if [type] == "kube-logs" {
+      mutate {
+        rename => ["log", "message"]
+      }
 
-        mutate {
-          rename => ["log", "message"]
-        }
+      date {
+        match => ["time", "ISO8601"]
+        remove_field => ["time"]
+      }
 
-        date {
-          match => ["time", "ISO8601"]
-          remove_field => ["time"]
-        }
-
-        grok {
-          match => { "source" => "/var/log/containers/%{DATA:pod_name}_%{DATA:namespace}_%{GREEDYDATA:container_name}-%{DATA:container_id}.log" }
-          remove_field => ["source"]
-        }
+      grok {
+        match => { "source" => "/var/log/containers/%{DATA:pod_name}_%{DATA:namespace}_%{GREEDYDATA:container_name}-%{DATA:container_id}.log" }
+        remove_field => ["source"]
       }
     }
 

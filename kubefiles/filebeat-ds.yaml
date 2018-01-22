@@ -23,7 +23,7 @@ spec:
             - name: LOGSTASH_HOSTS
               value: logstash:5000
             - name: LOG_LEVEL
-              value: debug
+              value: INFO
             - name: INDEX_PREFIX
               value: "filebeat"
           volumeMounts:

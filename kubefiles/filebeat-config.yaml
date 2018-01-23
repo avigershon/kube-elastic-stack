@@ -57,7 +57,7 @@ enabled: true
  
 # Here mentioned all your Kafka broker host and port to fetch cluster metadata which #contains published events for kafka brokers.
  
-hosts: ["kafka:9092"]
+hosts: ["kafka-kafka:9092"]
  
 # We can define topic for Kafka broker where events will published.
 topic: eco_logs

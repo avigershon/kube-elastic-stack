@@ -1,0 +1,186 @@
+#=============Filebeat prospectors ===============
+ 
+filebeat.prospectors:
+ 
+# Here we can define multiple prospectors and shipping method and rules  as per #requirement and if need to read logs from multiple file from same patter directory #location can use regular pattern also.
+ 
+#Filebeat support only two types of input_type log and stdin
+ 
+##############input type logs configuration#####################
+ 
+- input_type: log
+ 
+# Paths of the files from where logs will read and use regular expression if need to read #from multiple files
+paths:
+- /opt/app/app1/logs/app1-debug*.log*
+# make this fields_under_root as true if you want filebeat json out for read files in root.
+fields_under_root: true
+ 
+### Multiline configuration for handeling stacktrace, Object, XML etc if that is the case #and multiline is enabled with below configuration will shipped output for these case in #multiline
+ 
+# The regexp Pattern that has to be matched. The example pattern matches all lines #starting with [DEBUG,ALERT,TRACE,WARNING log level that can be customize #according to your logs line format
+#multiline.pattern: '^\[([Aa]lert|ALERT|[Tt]race|TRACE|[Dd]ebug|DEBUG|[Nn]otice|NOTICE|[Ii]nfo|INFO|[Ww]arn?(?:ing)?|WARN?(?:ING)?|[Ee]rr?(?:or)?|ERR?(?:OR)?|[Cc]rit?(?:ical)?|CRIT?(?:ICAL)?|[Ff]atal|FATAL|[Ss]evere|SEVERE|EMERG(?:ENCY)?|[Ee]merg(?:ency)?)'
+ 
+# Default is false.Defines if the pattern match  should be negated or not.
+#multiline.negate: true
+ 
+# multiline.match define if pattern not match with above pattern where these line need #to append.Possible values  are "after" or "before".
+ 
+#multiline.match: after
+ 
+# if you will set this max line after these number of multiline all will ignore
+#multiline.max_lines: 50
+ 
+#==========Kafka output Configuration ============================
+output.kafka:
+# Below enable flag is for enable or disable output module will discuss more on filebeat #moodule section
+enabled: true
+ 
+# Here mentioned all your Kafka broker host and port to fetch cluster metadata which #contains published events for kafka brokers.
+ 
+hosts: ["kafka:9092"]
+ 
+# We can define topic for Kafka broker where events will published.
+topic: eco_logs
+ 
+# Default no key setting. But we can use formatted key settings.
+#key: ''
+ 
+#Default partition strategy is 'hash' using key values set. If not set key value will #randomly distribute publish events.
+ 
+#partition.hash:
+ 
+# Default value  is false. If reach_only enabled event will publish only reachable kafka #brokers.
+#reachable_only: false
+ 
+# Configure alternative event field names used to compute the hash value.
+# If empty `output.kafka.key` setting will be used.
+# Default value is empty list.
+#hash: []
+ 
+# If authentication set on Kafka broker end below fileds are required.
+#username: ''
+#password: ''
+ 
+#Kafka Broker version to configure so that filebeat can check compatibility with that.
+#version: 0.8.2
+ 
+#Meta data information is required for broker event publishing so that filbeat can take  #decision based on status of brokers.
+ 
+#metadata:
+ 
+#Defaults value for max 3 retries selection of available brokers.
+#retry.max: 3
+ 
+# Default value is 250ms. Will wait for specified time before make next retries.
+#retry.backoff: 250ms
+ 
+# Will update meta data information  in every 10 minutes.
+#refresh_frequency: 10m
+ 
+# It shows no of worker will run for each configure kafka broker.
+#worker: 1
+ 
+#Default value is 3. If set less than 0 filebeat will retry continuously as logs as events not #publish.
+#max_retries: 3
+ 
+# The Default value is 2048.It shows max number of batch events will publish to Kafka in #one request.
+#bulk_max_size: 2048
+ 
+#The default value is 30 second. It will timeout if not hear any response from Kafka #broker with in specified time.
+#timeout: 30s
+# Default is value is 10 seconds. During this max duration broker will wait for #number #of required acknowledgement.
+#broker_timeout: 10s
+ 
+# Default value is 256 for buffered message for Kafka broker.
+#channel_buffer_size: 256
+ 
+# Default value is 0 seconds  as keep alive is disabled and if this value set will keep alive #active network connection for that time.
+#keep_alive: 0
+ 
+# Default value for compression is gzip. We can also set other compression codec like #snappy, gzip or none.
+compression: gzip
+ 
+#Default value is 1000000 bytes . If Json value is more than configured max message #bytes event will dropped.
+max_message_bytes: 1000000
+ 
+#Default Value is 1 for ACK for reliability. Possible values can be :
+ 
+#0=no response , Message can be lost on some error happens
+ 
+#1=wait for local commit
+ 
+#-1=wait for all replicas to commit.
+#required_acks: 1
+ 
+# Waiting Interval between new events and previous events for read logs.
+#flush_interval: 1s
+ 
+# The configurable ClientID used for logging, debugging, and auditing
+# purposes. The default is "beats".
+ 
+#Default value is beat. We can set values for this field that will help for analysis and #auditing purpose.
+#client_id: beats
+ 
+# Configure SSL setting id required for Kafk broker
+#ssl.enabled: true
+ 
+# Optional SSL configuration options. SSL is off by default.
+# List of root certificates for HTTPS server verifications
+ 
+#SSL configuration is Optional and OFF by default . It required for server verification if #HTTPS root certificate .
+#ssl.certificate_authorities: ["/etc/pki/root/ca.pem"]
+ 
+#Default value is full. SSL configuration verfication mode is required if SSL is configured .#We can use value as 'none' for testing purpose but in this mode it can accept any #certificate.
+#ssl.verification_mode: full
+ 
+# List of supported/valid TLS versions. By default all TLS versions 1.0 up to
+# 1.2 are enabled.
+ 
+#By Default  it support all TLS versions after 1.0 to 1.2. We can also mentioned version in #below array
+#ssl.supported_protocols: [TLSv1.0, TLSv1.1, TLSv1.2]
+ 
+# Define path for certificate for SSL
+#ssl.certificate: "/etc/pki/client/cert.pem"
+ 
+# Define path for Client Certificate Key
+#ssl.key: "/etc/pki/client/cert.key"
+ 
+# If data is configured and shipped encrypted form. Need to add passphrase for decrypting the Certificate Key otherwise optional
+#ssl.key_passphrase: ''
+ 
+# Configure encryption cipher suites to be used for SSL connections
+#ssl.cipher_suites: []
+ 
+# Configure encryption curve types for ECDHE based cipher suites
+#ssl.curve_types: []
+#====================Logging ==============================
+ 
+# Default log level is info if set above or below will record top this hierarchy #automatically. Available log levels are: critical, error, warning, info, debug
+ 
+logging.level: debug
+# Possible values for selectors are "beat", "publish" and  "service" if you want to enable #for all select value as "*". This selector decide on command line when  start filebeat.
+logging.selectors: ["*"]
+ 
+# The default value is false.If make it true will send out put to syslog.
+logging.to_syslog: false
+# The default is true. all non-zero metrics  reading are output on shutdown.
+logging.metrics.enabled: true
+ 
+# Period of matrics for log reading counts from log files and it will send complete report #when shutdown filebeat
+logging.metrics.period: 30s
+# Set this flag as true to enable logging in files if not set that will disable.
+logging.to_files: true
+logging.files:
+# Path of directory where logs file will write if not set default directory will home #directory.
+path: /tmp
+ 
+# Name of files where logs will write
+name: filebeat-app.log
+# Log File will rotate if reach max size and will create new file. Default value is 10MB
+rotateeverybytes: 10485760 # = 10MB
+ 
+# This will keep recent maximum log files in directory for rotation and remove oldest #files.
+keepfiles: 7
+# Will enable logging for that level only. Available log levels are: critical, error, warning, #info, debug
+level: debug

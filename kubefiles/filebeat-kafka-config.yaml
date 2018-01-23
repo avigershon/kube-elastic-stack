@@ -1,3 +1,12 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: filebeat-config
+data:
+  filebeat.yml: |-
+    filebeat.registry_file: /var/log/containers/filebeat_registry
+
 #=============Filebeat prospectors ===============
  
 filebeat.prospectors:
@@ -193,4 +202,4 @@ rotateeverybytes: 10485760 # = 10MB
 # This will keep recent maximum log files in directory for rotation and remove oldest #files.
 keepfiles: 7
 # Will enable logging for that level only. Available log levels are: critical, error, warning, #info, debug
-level: debug
+level: info

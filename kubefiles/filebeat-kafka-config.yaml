@@ -7,12 +7,22 @@ filebeat.prospectors:
 #Filebeat support only two types of input_type log and stdin
  
 ##############input type logs configuration#####################
- 
-- input_type: log
+      
+- type: log
  
 # Paths of the files from where logs will read and use regular expression if need to read #from multiple files
 paths:
-- /opt/app/app1/logs/app1-debug*.log*
+- "/var/log/containers/*.log"
+
+exclude_files: ['filebeat*.log','kube*.log']
+symlinks: true
+json.message_key: log
+json.keys_under_root: true
+json.add_error_key: true
+multiline.pattern: '^\s'
+multiline.match: after
+document_type: kube-logs
+
 # make this fields_under_root as true if you want filebeat json out for read files in root.
 fields_under_root: true
  

@@ -6,10 +6,8 @@ data:
   logstash.conf: |-
     input {
       kafka {
-        zk_connect => "kafka-zookeeper:2181"
-        group_id => "logstash"
-        topic_id => "eco-logs"
-        consumer_threads => 1
+        bootstrap_servers => "kafka-kafka:9200"
+        topics => ["eco-logs"]
       }
     }
     

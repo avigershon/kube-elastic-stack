@@ -22,7 +22,7 @@ data:
 
     output.kafka:
       # initial brokers for reading cluster metadata
-      hosts: ["${KAFKA_HOSTS}"]
+      hosts: ["kafka-kafka:9092"]
 
       # message topic selection + partitioning
       topic: "%{[@metadata][beat]}-%{+YYYY.MM.dd}"
@@ -31,6 +31,6 @@ data:
 
       required_acks: 1
       compression: gzip
-      max_message_bytes: 1000000
+      max_message_bytes: 10000000
       
     logging.level: ${LOG_LEVEL}

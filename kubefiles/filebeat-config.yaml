@@ -25,7 +25,7 @@ data:
       hosts: ["${KAFKA_HOSTS}"]
 
       # message topic selection + partitioning
-      topic: ${INDEX_PREFIX}
+      topic: "%{[@metadata][beat]}-%{+YYYY.MM.dd}"
       partition.round_robin:
         reachable_only: false
 

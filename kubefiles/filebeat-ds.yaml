@@ -21,7 +21,7 @@ spec:
               memory: 50Mi
           env:
             - name: KAFKA_HOSTS
-              value: kafka-kafka:9092
+              value: "kafka-kafka:9092"
             - name: LOG_LEVEL
               value: DEBUG
             - name: INDEX_PREFIX

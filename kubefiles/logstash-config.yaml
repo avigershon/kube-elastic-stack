@@ -6,7 +6,7 @@ data:
   logstash.conf: |-
     input {
       kafka {
-        bootstrap_servers => "kafka-kafka:9200"
+        bootstrap_servers => "kafka-kafka:9092"
         topics => ["eco-logs"]
       }
     }

@@ -32,3 +32,5 @@ data:
       logging.metrics.enabled: true
       logging.metrics.period: 30s
       logging.to_files: true
+      
+    logging.level: ${LOG_LEVEL}

@@ -32,9 +32,3 @@ data:
       logging.metrics.enabled: true
       logging.metrics.period: 30s
       logging.to_files: true
-      logging.files:
-        path: /tmp
-        name: filebeat-app.log
-        rotateeverybytes: 10485760
-        keepfiles: 7
-        level: info

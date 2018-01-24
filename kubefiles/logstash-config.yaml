@@ -7,7 +7,7 @@ data:
     input {
       kafka {
         bootstrap_servers => "kafka-kafka:9092"
-        topics => ["eco-logs"]
+        topics_pattern => "filebeat-*"
       }
     }
     
@@ -32,7 +32,7 @@ data:
         hosts => "elasticsearch:9200"
         user => "elastic"
         password => "changeme"
-        index => "%{[@metadata][beat]}-%{+YYYY.MM.dd}"
+        index => "%{[@metadata][kafka][topic]}"
         document_type => "%{[@metadata][type]}"
       }
     }

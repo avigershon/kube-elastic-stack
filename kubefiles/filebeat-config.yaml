@@ -21,16 +21,16 @@ data:
       document_type: kube-logs
 
     output.kafka:
-      enabled: true
+      # initial brokers for reading cluster metadata
       hosts: ["kafka-kafka:9092"]
-      topic: eco_logs
+
+      # message topic selection + partitioning
+      topic: '%{[@metadata][beat]}-%{+YYYY.MM.dd}'
+      partition.round_robin:
+        reachable_only: false
+
+      required_acks: 1
       compression: gzip
       max_message_bytes: 1000000
-      logging.level: debug
-      logging.selectors: ["*"]
-      logging.to_syslog: false
-      logging.metrics.enabled: true
-      logging.metrics.period: 30s
-      logging.to_files: true
       
     logging.level: ${LOG_LEVEL}

@@ -14,16 +14,16 @@ spec:
     spec:
       containers:
         - name: filebeat
-          image: docker.elastic.co/beats/filebeat:6.1.2
+          image: komljen/filebeat
           resources:
             limits:
               cpu: 50m
               memory: 50Mi
           env:
             - name: KAFKA_HOSTS
-              value: "kafka-kafka-headless:9092"
+              value: kafka-kafka-headless:9092
             - name: LOG_LEVEL
-              value: DEBUG
+              value: debug
             - name: INDEX_PREFIX
               value: "filebeat"
           volumeMounts:

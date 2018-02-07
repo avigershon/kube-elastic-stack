@@ -22,10 +22,10 @@ data:
 
     output.kafka:
       # initial brokers for reading cluster metadata
-      hosts: ["kafka-kafka-headless:9092"]
-
+      hosts: ["${KAFKA_HOSTS}"]
+      
       # message topic selection + partitioning
-      topic: "%{[@metadata][beat]}-%{+YYYY.MM.dd}"
+      topic: ${INDEX_PREFIX}
       partition.round_robin:
         reachable_only: false
 

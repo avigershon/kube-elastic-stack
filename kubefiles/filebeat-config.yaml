@@ -19,6 +19,8 @@ data:
       multiline.pattern: '^\s'
       multiline.match: after
       document_type: kube-logs
+      close_inactive: 1m
+      max_bytes: 10485760
 
     output.kafka:
       enable: true
@@ -31,6 +33,9 @@ data:
       max_message_bytes: 1000000
       
       # message topic selection + partitioning
-      topic: ${INDEX_PREFIX}
-      
-    logging.level: ${LOG_LEVEL}
+      topic: "%{[@metadata][beat]}-%{+YYYY.MM.dd}" #${INDEX_PREFIX}
+     
+    logging:
+      level: ${LOG_LEVEL}
+      files:
+        rotateeverybytes: 10485760 # = 1MB

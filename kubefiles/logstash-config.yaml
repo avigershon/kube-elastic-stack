@@ -7,7 +7,8 @@ data:
     input {
       kafka {
         bootstrap_servers => "kafka-kafka:9092"
-        topics_pattern => "filebeat-*"
+        codec             => "json"
+        topics_pattern    => "filebeat-*"
       }
     }
     

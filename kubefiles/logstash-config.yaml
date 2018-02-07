@@ -33,7 +33,7 @@ data:
         hosts => "elasticsearch:9200"
         user => "elastic"
         password => "changeme"
-        index => "%{[@metadata][kafka][topic]}"
+        index => "%{[@metadata][kafka][topic]}-%{+YYYY.MM.dd}"
         document_type => "%{[@metadata][type]}"
       }
     }

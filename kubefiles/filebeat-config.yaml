@@ -21,6 +21,7 @@ data:
       document_type: kube-logs
 
     output.kafka:
+      enable: true
       # initial brokers for reading cluster metadata
       hosts: [${KAFKA_HOSTS}]
       

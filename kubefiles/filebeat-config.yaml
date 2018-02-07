@@ -22,7 +22,7 @@ data:
 
     output.kafka:
       # initial brokers for reading cluster metadata
-      hosts: ["${KAFKA_HOSTS}"]
+      hosts: [${KAFKA_HOSTS}]
       
       # message topic selection + partitioning
       topic: ${INDEX_PREFIX}

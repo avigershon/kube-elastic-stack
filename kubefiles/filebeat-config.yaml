@@ -27,11 +27,5 @@ data:
       
       # message topic selection + partitioning
       topic: ${INDEX_PREFIX}
-      partition.round_robin:
-        reachable_only: false
-
-      required_acks: 1
-      compression: gzip
-      max_message_bytes: 10000000
       
     logging.level: ${LOG_LEVEL}

@@ -7,8 +7,7 @@ data:
     input {
       kafka {
         bootstrap_servers => "kafka-kafka:9092"
-        codec             => "json"
-        topics_pattern    => "filebeat-*"
+        topics    => ["filebeat"]
       }
     }
     
@@ -34,6 +33,5 @@ data:
         user => "elastic"
         password => "changeme"
         index => "%{[@metadata][kafka][topic]}-%{+YYYY.MM.dd}"
-        document_type => "%{[@metadata][type]}"
       }
     }

@@ -24,6 +24,11 @@ data:
       enable: true
       # initial brokers for reading cluster metadata
       hosts: ["${LOGSTASH_HOSTS}"]
+      partition.round_robin:
+        reachable_only: true
+      required_acks: 1
+      compression: gzip
+      max_message_bytes: 100000000
       
       # message topic selection + partitioning
       topic: ${INDEX_PREFIX}

@@ -11,7 +11,7 @@ data:
     - type: log
       paths:
         - "/var/log/containers/*.log"
-      exclude_files: ['filebeat*.log','kube*.log']
+      exclude_files: ['filebeat*.log','kube*.log', '.gz$', '.tmp']
       symlinks: true
       json.message_key: log
       json.keys_under_root: true
@@ -21,7 +21,8 @@ data:
       document_type: kube-logs
       close_inactive: 1m
       max_bytes: 10485760
-
+      ignore_older: 5m
+      
     output.kafka:
       enable: true
       # initial brokers for reading cluster metadata

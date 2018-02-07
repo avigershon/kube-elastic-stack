@@ -28,7 +28,7 @@ data:
         reachable_only: true
       required_acks: 1
       compression: gzip
-      max_message_bytes: 10000000
+      max_message_bytes: 100000
       
       # message topic selection + partitioning
       topic: ${INDEX_PREFIX}

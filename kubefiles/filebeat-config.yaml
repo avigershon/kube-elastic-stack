@@ -22,7 +22,7 @@ data:
 
     output.kafka:
       # initial brokers for reading cluster metadata
-      hosts: ["kafka-kafka1:9092, kafka-kafka2:9092"]
+      hosts: ["kafka-kafka1:9092", "kafka-kafka2:9092"]
 
       # message topic selection + partitioning
       topic: "%{[@metadata][beat]}-%{+YYYY.MM.dd}"

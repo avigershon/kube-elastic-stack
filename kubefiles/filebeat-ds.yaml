@@ -23,6 +23,31 @@ data:
       hosts: ['${ELASTICSEARCH_HOST:elasticsearch}:${ELASTICSEARCH_PORT:9200}']
       username: ${ELASTICSEARCH_USERNAME}
       password: ${ELASTICSEARCH_PASSWORD}
+      
+   output.kafka:
+      metadata:
+        retry.max: 3
+        retry.backoff: 250ms
+        refresh_frequency: 10m
+      worker: 1
+      max_retries: 3
+      bulk_max_size: 20480
+      timeout: 30s
+      broker_timeout: 10s
+      channel_buffer_size: 256
+      keep_alive: 0
+      compression: gzip
+      max_message_bytes: 1000000
+      flush_interval: 1s
+      enable: true
+      # initial brokers for reading cluster metadata
+      hosts: ["${KAFKA_HOSTS}"]
+      partition.round_robin:
+        reachable_only: false
+      required_acks: 1
+      
+      # message topic selection + partitioning
+      topic: "logs-%{[@metadata][kubernetes.namespace]}-%{[@metadata][kubernetes.pod.name]}-%{+YYYY.MM.dd}" #${INDEX_PREFIX}
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -67,6 +92,8 @@ spec:
           "-e",
         ]
         env:
+        - name: KAFKA_HOSTS
+          value: kafka-kafka-headless:9092
         - name: ELASTICSEARCH_HOST
           value: elasticsearch
         - name: ELASTICSEARCH_PORT

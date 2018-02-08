@@ -7,7 +7,7 @@ data:
     input {
       kafka {
         bootstrap_servers => "kafka-kafka:9092"
-        topics_pattern    => ["logs-*"]
+        topics_pattern    => "logs-*"
       }
     }
     

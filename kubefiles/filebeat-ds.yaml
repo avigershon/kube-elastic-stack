@@ -24,7 +24,7 @@ data:
       username: ${ELASTICSEARCH_USERNAME}
       password: ${ELASTICSEARCH_PASSWORD}
       
-   output.kafka:
+    output.kafka:
       metadata:
         retry.max: 3
         retry.backoff: 250ms
